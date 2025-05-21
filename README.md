@@ -1,0 +1,5 @@
+# Kezia Salsalina Agtyra Sebayang - 2306172086
+
+### Experiment 2.1
+![alt text](img/img1.png)
+When I start the server, it binds to 127.0.0.1:2000 and prints a “listening on port 2000” message. Opening each client causes the server to log a “New connection from …” line with the client’s ephemeral port. Behind the scenes, every handler clones the same broadcast channel, so each client gets its own receiver that stays in sync. As soon as one client sends a text message, the server prepends the sender’s address (e.g. 127.0.0.1:56210 says: hi) and pushes it into the broadcast channel. All connected clients’ receivers wake up and send the identical banner back down their WebSocket streams. Thanks to the tokio::select! loop, the server can read incoming messages and dispatch broadcasts concurrently without blocking. The result is that any message typed in one client instantly appears in all three windows, demonstrating a clean, non-blocking fan-out design for a multi-client chat server in Rust.
