@@ -15,6 +15,7 @@ async fn main() -> Result<(), tokio_websockets::Error> {
 
     let (mut ws_sender, mut ws_receiver) = ws_stream.split();
 
+    println!("Kezia's Computer - From server: Welcome to chat! Type a message");
     loop {
         tokio::select! {
             line = stdin.next_line() => match line {

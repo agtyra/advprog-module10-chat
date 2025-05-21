@@ -21,8 +21,7 @@ async fn handle_connection(
                     if let Some(text) = msg.as_text() {
                         println!("From client {} \"{}\"", addr, text);
 
-                        // now build and send the broadcast banner
-                        let banner = format!("{} says: {}", addr, text);
+                        let banner = format!("Kezia's Computer - From server {} says: {}", addr, text);
                         let _ = bcast_tx.send(banner);
                     } else if msg.is_close() {
                         break;
@@ -58,7 +57,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let (bcast_tx, _) = channel(16);
 
     let listener = TcpListener::bind("127.0.0.1:8080").await?;
-    println!("listening on port 2000");
+    println!("listening on port 8080");
 
     loop {
         let (socket, addr) = listener.accept().await?;
